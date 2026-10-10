@@ -146,3 +146,5 @@ fvm flutter test integration_test/conversion_test.dart -d macos
 ```
 
 The native test checks all eight options, foreground/background calls, empty and mixed Unicode text, concurrent requests, malformed input and recovery. Builds may fetch Swift dependencies; the tests make no service requests. Native dependency notices are bundled through `flutter.licenses`. Keep platform additions isolated when syncing upstream.
+
+The fork automatically checks macOS on changes. Upstream Android-matrix and iOS workflows remain available for manual compatibility checks when those platforms change.
