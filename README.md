@@ -4,7 +4,7 @@ Regnum fork of [zonble/flutter_open_chinese_convert](https://github.com/zonble/f
 
 [![pub package](https://img.shields.io/pub/v/flutter_open_chinese_convert.svg)](https://pub.dev/packages/flutter_open_chinese_convert)
 [![macOS conversion](https://github.com/Regnum-io/flutter_open_chinese_convert/actions/workflows/macos.yml/badge.svg)](https://github.com/Regnum-io/flutter_open_chinese_convert/actions/workflows/macos.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/zonble/flutter_open_chinese_convert/blob/main/LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/zonble/flutter_open_chinese_convert/blob/master/LICENSE)
 
 flutter_open_chinese_convert bridges [OpenCC](https://github.com/BYVoid/OpenCC)
 (開放中文轉換 / Open Chinese Convert) to your Flutter projects. You can use the
@@ -29,7 +29,7 @@ dependencies:
   flutter_open_chinese_convert:
     git:
       url: https://github.com/Regnum-io/flutter_open_chinese_convert.git
-      ref: main # Pin a tested commit in production.
+      ref: master # Pin a tested commit in production.
 ```
 
 Then run:
