@@ -20,7 +20,7 @@ Supported conversion options:
 | `s2twp` | Simplified Chinese → Traditional Chinese (Taiwan Standard) with Taiwanese idiom      |
 | `tw2sp` | Traditional Chinese (Taiwan Standard) → Simplified Chinese with Mainland Chinese idiom |
 
-The plugin supports **Android**, **iOS**, and **Web**.
+The plugin supports **Android**, **iOS**, **macOS**, and **Web**.
 
 ---
 
@@ -57,7 +57,7 @@ flutter_open_chinese_convert/
 ├── example/                        # Example Flutter app
 ├── analysis_options.yaml           # Dart linting rules (flutter_lints)
 ├── .swift-format                   # Swift formatting rules
-├── .fvmrc                          # Flutter Version Manager config (Flutter 3.38.0)
+├── .fvmrc                          # Flutter Version Manager config (Flutter 3.47.5)
 └── pubspec.yaml
 ```
 
@@ -83,7 +83,7 @@ verified to support the 16KB page size alignment.
 
 | Tool          | Version / Notes                                    |
 |---------------|----------------------------------------------------|
-| Flutter       | 3.38.0 (pinned via FVM — see `.fvmrc`)             |
+| Flutter       | 3.47.5 (pinned via FVM — see `.fvmrc`)             |
 | Dart          | Ships with Flutter (SDK `>=3.3.0 <4.0.0`)          |
 | Java          | 17 (required for Android Gradle builds)            |
 | Android SDK   | `compileSdk 36`, `minSdk 24`                       |
@@ -246,10 +246,11 @@ The plugin uses the standard Flutter platform channel pattern:
 1. **Dart API** (`lib/src/chinese_converter.dart`): calls `MethodChannel('flutter_open_chinese_convert')` with method name `convert` and arguments `[text, optionId, inBackground, webIgnoreMissingIdioms]`.
 2. **Android** (`FlutterOpenccPlugin.kt`): receives the method call, maps the option ID to a `ConversionType`, and calls the native `ChineseConverter.convert()` (either on the main thread or a coroutine).
 3. **iOS** (`FlutterOpenChineseConvertPlugin.swift`): receives the method call, maps the option ID to `ChineseConverter.Options`, and calls `ChineseConverter.convert()` (either on the calling thread or a background `DispatchQueue`).
-4. **Web** (`lib/src/web/`): pure Dart/JS implementation using `opencc-js`.
+4. **macOS** (`macos/flutter_open_chinese_convert/`): Swift Package Manager bridge using the same pinned SwiftyOpenCC as iOS. Native regression tests live in `example/integration_test/`.
+5. **Web** (`lib/src/web/`): pure Dart/JS implementation using `opencc-js`.
 
 The `inBackground` parameter controls whether conversion is performed on a background thread
-(Android: coroutine on `IO` dispatcher; iOS: `DispatchQueue.global()`).
+(Android: coroutine on `IO` dispatcher; iOS/macOS: `DispatchQueue.global()`).
 
 ---
 
@@ -260,6 +261,7 @@ The `inBackground` parameter controls whether conversion is performed on a backg
 3. Map the new option's `id` in:
    - `FlutterOpenccPlugin.kt` (`typeOf()` function)
    - `FlutterOpenChineseConvertPlugin.swift` (`convertOptions(from:)` function)
+   - macOS `FlutterOpenChineseConvertPlugin.swift` (`options(for:)`)
    - Web implementation
 4. Update `README.md` and `CHANGELOG.md`.
 

@@ -1,7 +1,9 @@
 # flutter_open_chinese_convert
 
+Regnum fork of [zonble/flutter_open_chinese_convert](https://github.com/zonble/flutter_open_chinese_convert), adding macOS support while retaining the Dart API and mobile implementations. Windows and Linux are not implemented.
+
 [![pub package](https://img.shields.io/pub/v/flutter_open_chinese_convert.svg)](https://pub.dev/packages/flutter_open_chinese_convert)
-[![Build](https://github.com/zonble/flutter_open_chinese_convert/actions/workflows/ci.yml/badge.svg)](https://github.com/zonble/flutter_open_chinese_convert/actions/workflows/ci.yml)
+[![macOS conversion](https://github.com/Regnum-io/flutter_open_chinese_convert/actions/workflows/macos.yml/badge.svg)](https://github.com/Regnum-io/flutter_open_chinese_convert/actions/workflows/macos.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/zonble/flutter_open_chinese_convert/blob/main/LICENSE)
 
 flutter_open_chinese_convert bridges [OpenCC](https://github.com/BYVoid/OpenCC)
@@ -15,6 +17,7 @@ regional standards.
 |----------|---------|
 | Android  | ✅ (min SDK 24 / Android 7.0) |
 | iOS      | ✅ |
+| macOS    | ✅ (10.15+, Swift Package Manager) |
 | Web      | ✅ |
 
 ## Installation
@@ -23,7 +26,10 @@ Add the package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  flutter_open_chinese_convert: ^0.9.0
+  flutter_open_chinese_convert:
+    git:
+      url: https://github.com/Regnum-io/flutter_open_chinese_convert.git
+      ref: main # Pin a tested commit in production.
 ```
 
 Then run:
@@ -69,7 +75,7 @@ var result = await ChineseConverter.convert(text, S2TWp());
 ### Running conversion in the background
 
 Pass `inBackground: true` to perform the conversion on a native background
-thread (Android: Kotlin coroutine on the `IO` dispatcher; iOS:
+thread (Android: Kotlin coroutine on the `IO` dispatcher; iOS/macOS:
 `DispatchQueue.global()`). This is recommended for large text inputs to avoid
 blocking the UI thread:
 
@@ -123,3 +129,20 @@ builds its native library (`libChineseConverter.so`) with the
 - [OpenCC Project](https://github.com/BYVoid/OpenCC)
 - [opencc-js](https://github.com/nk2028/opencc-js)
 - [SwiftyOpenCC](https://github.com/ddddxxx/SwiftyOpenCC)
+
+## macOS maintenance and verification
+
+The macOS plugin uses the same pinned SwiftyOpenCC revision as iOS. Dictionaries are bundled by that dependency; native conversion requires no runtime network connection or system OpenCC installation. Every background request owns its converter and replies on the main thread. Swift Package Manager is the verified integration path; a CocoaPods specification is also supplied but has not been validated in this fork.
+
+Use the FVM-pinned SDK:
+
+```sh
+fvm flutter pub get
+fvm flutter test
+cd example
+fvm flutter pub get
+fvm flutter build macos --debug
+fvm flutter test integration_test/conversion_test.dart -d macos
+```
+
+The native test checks all eight options, foreground/background calls, empty and mixed Unicode text, concurrent requests, malformed input and recovery. Builds may fetch Swift dependencies; the tests make no service requests. Native dependency notices are bundled through `flutter.licenses`. Keep platform additions isolated when syncing upstream.

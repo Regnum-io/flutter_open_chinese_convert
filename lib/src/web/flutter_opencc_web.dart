@@ -14,7 +14,7 @@ import 'option_pair.dart';
 /// This calls the `OpenCC.Converter` JavaScript constructor, which returns a
 /// function that accepts a string and produces the converted output.
 @JS('OpenCC.Converter')
-external JSFunction Converter(JSAny options);
+external JSFunction createConverter(JSAny options);
 
 /// The web implementation of [FlutterOpenChineseConvertPlatform].
 ///
@@ -61,7 +61,7 @@ class FlutterOpenccWeb extends FlutterOpenChineseConvertPlatform {
     }
 
     JSFunction converterInstance =
-        Converter({"to": options.to, "from": options.from}.jsify()!);
+        createConverter({"to": options.to, "from": options.from}.jsify()!);
     JSAny? result = converterInstance.callAsFunction(null, text.toJS);
     return (result as JSString).toDart;
   }
