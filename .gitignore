@@ -12,3 +12,6 @@ build/
 *.bak
 .build
 .swiftpm
+
+# Generated Flutter plugin discovery contains machine-specific paths.
+.flutter-plugins-dependencies

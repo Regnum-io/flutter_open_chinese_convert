@@ -1,0 +1,13 @@
+# Flutter-related
+**/Flutter/ephemeral/
+**/Pods/
+
+# Xcode-related
+**/dgph
+**/xcuserdata/
+
+/Runner.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/
+
+# Keep the shared runner scheme and canonical dependency lock.
+!Runner.xcodeproj/xcshareddata/
+!Runner.xcworkspace/xcshareddata/

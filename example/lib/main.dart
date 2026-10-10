@@ -60,13 +60,13 @@ class _MyAppState extends State<MyApp> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    'Conveted:',
+                    'Converted:',
                     style: Theme.of(context).textTheme.headlineLarge,
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(_converted ?? ''),
+                  child: Text(_converted),
                 ),
               ],
             ),

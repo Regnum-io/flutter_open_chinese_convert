@@ -1,3 +1,9 @@
+## 1.0.1-regnum.1
+
+- Add macOS native conversion with bundled SwiftyOpenCC dictionaries.
+- Preserve all eight Dart conversion options and background execution.
+- Add a standalone macOS example host and native integration coverage.
+
 ## 0.9.0
 
 - Fixes Android build issues with Flutter 3.35+.

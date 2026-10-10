@@ -1,6 +1,6 @@
 name: "flutter_open_chinese_convert"
-version: 1.0.0
-homepage: "https://github.com/zonble/flutter_open_chinese_convert"
+version: 1.0.1-regnum.1
+homepage: "https://github.com/Regnum-io/flutter_open_chinese_convert"
 environment:
   sdk: ">=3.3.0 <4.0.0"
   flutter: ">=3.24.0"
@@ -19,12 +19,16 @@ dev_dependencies:
   import_sorter: "^4.6.0"
   pubspec_dependency_sorter: "^1.0.4"
 flutter:
+  licenses:
+    - licenses/opencc-native.txt
   plugin:
     platforms:
       android:
         package: "net.zonble.flutter_open_chinese_convert"
         pluginClass: FlutterOpenccPlugin
       ios:
+        pluginClass: FlutterOpenChineseConvertPlugin
+      macos:
         pluginClass: FlutterOpenChineseConvertPlugin
       web:
         pluginClass: FlutterOpenccWeb
