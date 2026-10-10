@@ -7,3 +7,7 @@
 **/xcuserdata/
 
 /Runner.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/
+
+# Keep the shared runner scheme and canonical dependency lock.
+!Runner.xcodeproj/xcshareddata/
+!Runner.xcworkspace/xcshareddata/
